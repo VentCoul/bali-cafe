@@ -1,0 +1,89 @@
+## clients.sendSms: Отправка SMS от имени аккаунта
+
+<details open> 
+<summary>Пример запроса</summary>
+
+<!-- tabs:start -->
+
+#### **JS**
+
+```javascript
+
+const url = 'https://joinposter.com/api/clients.sendSms
+?token=687409:4164553abf6a031302898da7800b59fb';
+
+const sms = {
+  phone: 380684113524,
+  message: 'У вас осталось 10 бонусов на счету',
+};
+
+```
+#### **PHP**
+
+```php
+<?php
+$url = 'https://joinposter.com/api/clients.sendSms'
+ . '?token=687409:4164553abf6a031302898da7800b59fb';
+
+$sms = [
+    'phone' => 380684113524,
+    'message' => 'У вас осталось 10 бонусов на счету'
+];
+
+$data = sendRequest($url, 'post', $sms);
+
+```
+#### **Postman**
+
+```json
+
+url = https://joinposter.com/api/clients.sendSms
+ ?token=687409:4164553abf6a031302898da7800b59fb
+
+{
+    "phone": 380684113524,
+    "message": "У вас осталось 10 бонусов на счету"
+  }
+
+```
+<!-- tabs:end -->
+</details>
+
+<details open> 
+<summary>Пример ответа</summary>
+
+```json
+{
+  "response":true
+}
+```
+</details>
+
+Метод отправляет SMS от имени аккаунта Poster.
+
+<aside class="warning">
+    СМС оплачиваются отдельно: 72 копейки за каждые 70 символов. 
+    Функция доступна только для платных клиентов Poster.
+    
+</aside>
+
+<aside class="info">
+    SMS получится отправлять только на украинские номера, которые начинаются с 380.
+</aside>
+
+### HTTP запрос
+
+`POST https://joinposter.com/api/clients.sendSms`
+
+### POST-параметры запроса clients.sendSms
+
+| Параметр | Описание                                                                                                  |
+|----------|-----------------------------------------------------------------------------------------------------------|
+| phone    | Номер телефона на которые отправляется SMS. Номер должен быть в международном формате, без лидирующего +. |
+| message  | Текст SMS сообщения                                                                                       |
+
+### Параметры ответа clients.sendSms
+
+| Параметр | Описание                                                                       |
+|----------|--------------------------------------------------------------------------------|
+| response | Результат отправки SMS: `true` – если отправлена, иначе вернется объект ошибки. |
