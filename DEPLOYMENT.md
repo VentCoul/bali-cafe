@@ -53,10 +53,9 @@ nano .env.local
 ```
 
 3. Впишіть ваші реальні дані:
-- `POSTER_CLIENT_ID` та `POSTER_CLIENT_SECRET` (з dev.joinposter.com)
-- `POSTER_ACCOUNT` (назва вашого закладу)
+- `POSTER_CLIENT_ID` та `POSTER_CLIENT_SECRET` (це ключі самого "додатку", які треба створити на dev.joinposter.com, вони потрібні для того, щоб підключити ваш особистий акаунт)
 - `ADMIN_PASSWORD` (придумайте надійний пароль для доступу в `/admin`, логін завжди `admin`)
-- `NEXT_PUBLIC_BASE_URL` (замініть `http://localhost:3000` на ваш реальний домен, наприклад `https://balicafe.com.ua`)
+- `NEXT_PUBLIC_BASE_URL` (замініть `http://localhost:3000` на ваш реальний домен, наприклад `https://balicafe.com.ua` або `https://1-2-3-4.nip.io`)
 
 Збережіть файл (Ctrl+O, Enter, Ctrl+X).
 
