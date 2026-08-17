@@ -14,7 +14,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install nginx certbot python3-certbot-nginx -y
 
 # Встановлення Docker та Docker Compose
-sudo apt install docker.io docker-compose -y
+sudo apt install docker.io docker-compose-plugin -y
 sudo systemctl enable --now docker
 ```
 
@@ -29,9 +29,13 @@ cd bali-cafe
 ```
 
 **Варіант Б: Скопіювати файли напряму через SSH (з вашого комп'ютера)**
-Виконайте цю команду у терміналі на *вашому комп'ютері* (не на сервері), замінивши `user@ваша_ip_адреса` на реальні дані вашого VPS:
+Обов'язково спочатку перейдіть у папку з вашим проектом у терміналі комп'ютера:
 ```bash
-rsync -avz --exclude 'node_modules' --exclude '.next' --exclude '.git' ./ user@ваша_ip_адреса:~/bali-cafe/
+cd ~/dev/bali
+```
+Потім виконайте команду (замінивши `user@ваша_ip_адреса` на реальні дані вашого VPS):
+```bash
+rsync -avz --filter=":- .gitignore" --exclude '.git' ./ user@ваша_ip_адреса:~/bali-cafe/
 ```
 Після успішного копіювання, зайдіть на сервер через SSH і перейдіть у папку:
 ```bash
@@ -64,7 +68,7 @@ nano .env.local
 Тепер, коли код на сервері і ключі налаштовані, запускаємо контейнер:
 
 ```bash
-sudo docker-compose up -d --build
+sudo docker compose up -d --build
 ```
 *Ця команда скачає залежності, скомпілює Next.js додаток (це може зайняти пару хвилин) і запустить його у фоні на порту 3000.*
 
