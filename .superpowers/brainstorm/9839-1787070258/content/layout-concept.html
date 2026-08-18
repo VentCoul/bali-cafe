@@ -1,0 +1,221 @@
+<style>
+  .preview-page {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    background: #F5F2EB;
+    min-height: 100vh;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 10px #e0dcd0;
+  }
+  
+  /* Animated Background Blobs for the entire page */
+  .bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    z-index: 1;
+  }
+  .blob-top-left {
+    top: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    background: #2C402E; /* Bali Green */
+    animation: drift 15s ease-in-out infinite alternate;
+  }
+  .blob-center-right {
+    top: 30%;
+    right: -150px;
+    width: 500px;
+    height: 500px;
+    background: #B68B5D; /* Bali Gold */
+    animation: drift 20s ease-in-out infinite alternate-reverse;
+  }
+  .blob-bottom-left {
+    bottom: -100px;
+    left: -50px;
+    width: 350px;
+    height: 350px;
+    background: #2C402E;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  
+  @keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 50px) scale(1.1); }
+  }
+
+  /* Shared Dark Glass Style */
+  .glass-panel {
+    background: rgba(44, 64, 46, 0.7); /* Dark Bali Green */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    color: white;
+    z-index: 10;
+    position: relative;
+  }
+
+  /* Header Mock */
+  .mock-header {
+    position: sticky;
+    top: 20px;
+    margin: 0 20px;
+    height: 64px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+  }
+  .mock-logo {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #B68B5D;
+  }
+  .mock-nav {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+  }
+  .mock-nav span { opacity: 0.8; cursor: pointer; transition: opacity 0.3s; }
+  .mock-nav span:hover { opacity: 1; }
+
+  /* Hero Section */
+  .mock-hero {
+    padding: 120px 40px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+  }
+  .mock-hero h1 {
+    font-family: Georgia, serif;
+    font-size: 56px;
+    margin: 0 0 16px 0;
+    color: #2C402E;
+  }
+  .mock-hero p {
+    font-size: 18px;
+    color: #2C402E;
+    opacity: 0.8;
+    max-width: 500px;
+    margin: 0 auto 40px auto;
+  }
+  .mock-btn {
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .mock-btn:hover { transform: translateY(-3px) scale(1.02); }
+
+  /* Menu Section */
+  .mock-menu {
+    padding: 40px;
+    position: relative;
+    z-index: 10;
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+  
+  .menu-card {
+    border-radius: 24px;
+    padding: 20px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+  }
+  .menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+  }
+  .card-img-placeholder {
+    height: 160px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.1);
+    margin-bottom: 16px;
+  }
+  
+  /* Explanation section outside the mockup */
+  .explanation {
+    margin-top: 30px;
+  }
+</style>
+
+<div class="layout-header">
+  <h2>Концепт головної сторінки (Темне Скло)</h2>
+  <p class="subtitle">Ось як виглядатиме ваш сайт із застосуванням обраного стилю. Фон залишається світлим для зручності читання, але акценти (шапка, картки меню, кнопки) зроблені з темного напівпрозорого скла з розмиттям під ними.</p>
+</div>
+
+<!-- Mockup Frame -->
+<div class="preview-page">
+  <div class="bg-blob blob-top-left"></div>
+  <div class="bg-blob blob-center-right"></div>
+  <div class="bg-blob blob-bottom-left"></div>
+
+  <!-- Header -->
+  <div class="mock-header glass-panel">
+    <div class="mock-logo">Bali Cafe</div>
+    <div class="mock-nav">
+      <span>Меню</span>
+      <span>Історія</span>
+      <span>Контакти</span>
+    </div>
+    <div class="mock-nav">
+      <span style="color: #B68B5D;">Увійти</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="mock-hero">
+    <h1>Відчуй смак Балі</h1>
+    <p>Автентична кава та їжа, що переносить вас на острови.</p>
+    <div class="mock-btn glass-panel" style="color: #B68B5D;">Переглянути меню</div>
+  </div>
+
+  <!-- Menu Area -->
+  <div class="mock-menu">
+    <h2 style="font-family: Georgia, serif; text-align: center; font-size: 36px; color: #2C402E;">Популярне</h2>
+    
+    <div class="menu-grid">
+      <div class="menu-card glass-panel">
+        <div class="card-img-placeholder"></div>
+        <h4 style="margin: 0 0 8px 0; font-family: Georgia, serif; font-size: 20px;">Матча Лате</h4>
+        <p style="margin: 0; opacity: 0.8; font-size: 14px;">Ніжний напій з додаванням кокосового молока.</p>
+      </div>
+      <div class="menu-card glass-panel">
+        <div class="card-img-placeholder"></div>
+        <h4 style="margin: 0 0 8px 0; font-family: Georgia, serif; font-size: 20px;">Балі Боул</h4>
+        <p style="margin: 0; opacity: 0.8; font-size: 14px;">Свіжі фрукти, гранола та насіння чіа.</p>
+      </div>
+      <div class="menu-card glass-panel">
+        <div class="card-img-placeholder"></div>
+        <h4 style="margin: 0 0 8px 0; font-family: Georgia, serif; font-size: 20px;">Кава V60</h4>
+        <p style="margin: 0; opacity: 0.8; font-size: 14px;">Ексклюзивні зерна світлого обсмаження.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="explanation pros-cons">
+  <div class="pros">
+    <h4>Ключові зміни, які я пропоную впровадити:</h4>
+    <ol>
+      <li><strong>Плаваюча скляна шапка (Header):</strong> Відкріпити шапку від самого верху і зробити її плаваючою зі скляним ефектом (як на демо). Вона буде зменшуватись при скролі.</li>
+      <li><strong>Анімований фон:</strong> Додати плавні, повільні кольорові плями на фон сторінки.</li>
+      <li><strong>Картки меню:</strong> Перевести всі картки страв у стиль "Темного скла", додати ефект збільшення та тіні при наведенні мишки (hover).</li>
+      <li><strong>Скрол-анімації:</strong> Зробити так, щоб секції меню плавно виїжджали знизу при прокрутці сторінки.</li>
+    </ol>
+  </div>
+</div>

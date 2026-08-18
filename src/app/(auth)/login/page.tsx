@@ -110,7 +110,7 @@ function LoginContent() {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Ще не маєте акаунту?{' '}
-          <Link href="/register" className="text-[var(--color-bali-gold)] font-medium hover:underline">
+          <Link href={`/register${callbackUrl !== '/profile' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} className="text-[var(--color-bali-gold)] font-medium hover:underline">
             Зареєструватися
           </Link>
         </p>

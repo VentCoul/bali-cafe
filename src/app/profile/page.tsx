@@ -43,7 +43,7 @@ export default async function ProfilePage() {
             <h2 className="text-xl font-medium mb-4">Ваші дані</h2>
             <div className="space-y-3 text-gray-600">
               <p><span className="font-medium text-gray-900">Ім'я:</span> {user.name || '—'}</p>
-              <div className="flex items-start gap-1 flex-col">
+              <div className="flex flex-col items-start gap-1 w-full">
                 <span className="font-medium text-gray-900">Телефон:</span> 
                 <PhoneUpdateForm currentPhone={user.phone} />
               </div>

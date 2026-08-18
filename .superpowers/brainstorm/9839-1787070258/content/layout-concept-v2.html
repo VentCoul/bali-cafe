@@ -1,0 +1,205 @@
+<style>
+  .preview-page {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    background: #F5F2EB;
+    min-height: 100vh;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 0 10px #e0dcd0;
+  }
+  
+  /* Shared Dark Glass Style */
+  .glass-panel {
+    background: rgba(44, 64, 46, 0.5); /* Dark Bali Green */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    color: white;
+    z-index: 10;
+    position: relative;
+  }
+
+  /* Header Mock */
+  .custom-header {
+    position: sticky;
+    top: 20px;
+    margin: 0 20px;
+    height: 64px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+  }
+  .custom-logo {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #B68B5D;
+  }
+  .custom-nav {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+    background: transparent;
+  }
+  .custom-nav span { 
+    opacity: 0.8; 
+    cursor: pointer; 
+    transition: opacity 0.3s;
+    background: transparent;
+    color: white;
+    padding: 0;
+  }
+  .custom-nav span:hover { opacity: 1; }
+
+  /* Hero Section */
+  .custom-hero {
+    padding: 120px 40px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: -1;
+  }
+
+  .custom-hero h1 {
+    font-family: Georgia, serif;
+    font-size: 56px;
+    margin: 0 0 16px 0;
+    color: white;
+  }
+  
+  .custom-hero h1 span {
+    color: #B68B5D;
+  }
+  
+  .custom-hero p {
+    font-size: 18px;
+    color: white;
+    opacity: 0.9;
+    max-width: 500px;
+    margin: 0 auto 40px auto;
+  }
+  
+  .custom-btn {
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .custom-btn:hover { transform: translateY(-3px) scale(1.02); }
+
+  /* Menu Section */
+  .custom-menu {
+    padding: 60px 40px;
+    position: relative;
+    z-index: 10;
+    background: #F5F2EB;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    margin-top: -40px; /* Overlap hero */
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+  
+  .menu-card {
+    border-radius: 24px;
+    padding: 20px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+  }
+  .menu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.2);
+  }
+  .card-img-placeholder {
+    height: 160px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.1);
+    margin-bottom: 16px;
+  }
+</style>
+
+<div class="layout-header">
+  <h2>Оновлений концепт з фоном та виправленими кнопками</h2>
+</div>
+
+<!-- Mockup Frame -->
+<div class="preview-page">
+
+  <!-- Header -->
+  <div class="custom-header glass-panel">
+    <div class="custom-logo">Bali Cafe</div>
+    <div class="custom-nav">
+      <span>Меню</span>
+      <span>Історія</span>
+      <span>Контакти</span>
+    </div>
+    <div class="custom-nav">
+      <span style="color: #B68B5D; font-weight: bold;">Увійти</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="custom-hero">
+    <img class="hero-bg" src="https://images.unsplash.com/photo-1544644181-1484b3f8c85e?q=80&w=1600&auto=format&fit=crop" alt="Bali Background">
+    <div class="hero-overlay"></div>
+    
+    <h1>Bali <span>Cafe</span></h1>
+    <p>Шматочок тропічного раю у вашому місті</p>
+    <div class="custom-btn glass-panel" style="color: #B68B5D;">Переглянути меню</div>
+  </div>
+
+  <!-- Menu Area -->
+  <div class="custom-menu">
+    <h2 style="font-family: Georgia, serif; text-align: center; font-size: 36px; color: #2C402E;">Популярне</h2>
+    
+    <div class="menu-grid">
+      <div class="menu-card glass-panel" style="background: rgba(44, 64, 46, 0.8);">
+        <div class="card-img-placeholder"></div>
+        <h4 style="margin: 0 0 8px 0; font-family: Georgia, serif; font-size: 20px; color: white;">Матча Лате</h4>
+        <p style="margin: 0; opacity: 0.8; font-size: 14px; color: white;">Ніжний напій з додаванням кокосового молока.</p>
+      </div>
+      <div class="menu-card glass-panel" style="background: rgba(44, 64, 46, 0.8);">
+        <div class="card-img-placeholder"></div>
+        <h4 style="margin: 0 0 8px 0; font-family: Georgia, serif; font-size: 20px; color: white;">Балі Боул</h4>
+        <p style="margin: 0; opacity: 0.8; font-size: 14px; color: white;">Свіжі фрукти, гранола та насіння чіа.</p>
+      </div>
+      <div class="menu-card glass-panel" style="background: rgba(44, 64, 46, 0.8);">
+        <div class="card-img-placeholder"></div>
+        <h4 style="margin: 0 0 8px 0; font-family: Georgia, serif; font-size: 20px; color: white;">Кава V60</h4>
+        <p style="margin: 0; opacity: 0.8; font-size: 14px; color: white;">Ексклюзивні зерна світлого обсмаження.</p>
+      </div>
+    </div>
+  </div>
+</div>

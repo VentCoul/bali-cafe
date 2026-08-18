@@ -1,0 +1,213 @@
+<style>
+  .glass-preview {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+  }
+  
+  .bg-area {
+    position: relative;
+    padding: 60px 40px;
+    border-radius: 32px;
+    background: linear-gradient(135deg, #F5F2EB 0%, #e8e2d2 100%);
+    overflow: hidden;
+    margin-bottom: 40px;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+  }
+  
+  /* Vibrant blobs to make the glass blur visible */
+  .blob-1 {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 300px;
+    height: 300px;
+    background: #2C402E; /* Bali Green */
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+    animation: float 10s ease-in-out infinite;
+  }
+  
+  .blob-2 {
+    position: absolute;
+    bottom: -80px;
+    right: -20px;
+    width: 350px;
+    height: 350px;
+    background: #B68B5D; /* Bali Gold */
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: float 12s ease-in-out infinite reverse;
+  }
+  
+  @keyframes float {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -40px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Glass Card Base */
+  .glass-card {
+    position: relative;
+    width: 320px;
+    padding: 32px;
+    border-radius: 24px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .glass-card:hover {
+    transform: translateY(-10px) scale(1.02);
+  }
+
+  /* Option A: Light Glass */
+  .glass-light {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  }
+  
+  .glass-light:hover {
+    box-shadow: 0 15px 40px 0 rgba(31, 38, 135, 0.15);
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Option B: Dark Glass */
+  .glass-dark {
+    background: rgba(44, 64, 46, 0.6); /* Bali Green */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    color: white;
+  }
+  
+  .glass-dark:hover {
+    box-shadow: 0 15px 40px 0 rgba(0, 0, 0, 0.3);
+    background: rgba(44, 64, 46, 0.7);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 180px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .glass-dark .card-img {
+    background: rgba(255,255,255,0.1);
+  }
+
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 22px;
+    font-family: Georgia, serif; /* Playfair approximation */
+  }
+  
+  p {
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+  
+  .glass-light .btn {
+    background: #2C402E;
+    color: white;
+  }
+  
+  .glass-dark .btn {
+    background: #B68B5D;
+    color: white;
+  }
+  
+  .btn:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Layout Options formatting */
+  .layout-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+</style>
+
+<div class="glass-preview">
+  <div class="layout-header">
+    <h2>Стиль Apple Liquid Glass (Glassmorphism)</h2>
+    <p class="subtitle">Ось два варіанти як ми можемо реалізувати ефект скла. Клікніть на варіант, який вам більше подобається.</p>
+  </div>
+
+  <div class="bg-area options">
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+    
+    <!-- Option A -->
+    <div class="option" data-choice="light" onclick="toggleSelect(this)" style="border:none; background:transparent; padding:0; box-shadow:none;">
+      <div class="glass-card glass-light">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop" alt="Coffee">
+        </div>
+        <h3>Варіант А: Світле скло</h3>
+        <p>Напівпрозоре біле скло з розмиттям фону. Виглядає дуже свіжо, чисто і сучасно. Добре підійде до світлої теми сайту.</p>
+        <div class="btn">Вибрати світле</div>
+      </div>
+    </div>
+    
+    <!-- Option B -->
+    <div class="option" data-choice="dark" onclick="toggleSelect(this)" style="border:none; background:transparent; padding:0; box-shadow:none;">
+      <div class="glass-card glass-dark">
+        <div class="card-img">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=600&auto=format&fit=crop" alt="Coffee Dark">
+        </div>
+        <h3>Варіант Б: Темне скло</h3>
+        <p>Темне фірмове зелене скло з ефектом розмиття. Надає більшого контрасту, преміальності та виглядає дуже стильно.</p>
+        <div class="btn">Вибрати темне</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Що додасть цей стиль:</h4>
+      <ul>
+        <li>Відчуття глибини та сучасності (як у топових додатках Apple)</li>
+        <li>Плавні мікро-анімації при наведенні (спробуйте навести мишкою на картки)</li>
+        <li>Фон сторінки стане більш інтерактивним (можна додати плавні кольорові плями на фон, як у прикладі)</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>Що ще можна додати:</h4>
+      <ul>
+        <li>Появу елементів при скролі (анімації знизу-вгору)</li>
+        <li>Скляне меню зверху (Header), що залишається напівпрозорим при прокрутці</li>
+      </ul>
+    </div>
+  </div>
+</div>
