@@ -161,7 +161,7 @@ function RegisterContent() {
 
         <p className="mt-6 text-center text-sm text-gray-600">
           Вже маєте акаунт?{' '}
-          <Link href="/login" className="text-[var(--color-bali-gold)] font-medium hover:underline">
+          <Link href={`/login${callbackUrl !== '/profile' ? `?callbackUrl=${encodeURIComponent(callbackUrl)}` : ''}`} className="text-[var(--color-bali-gold)] font-medium hover:underline">
             Увійти
           </Link>
         </p>
