@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id               String    @id @default(cuid())
+  name             String?
+  email            String?   @unique
+  passwordHash     String?
+  phone            String?   @unique
+  posterClientId   String?
+  image            String?
+  role             String    @default("USER")
+  createdAt        DateTime  @default(now())
+}
