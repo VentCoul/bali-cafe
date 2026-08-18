@@ -4,7 +4,7 @@ export interface PosterProduct {
   product_name: string;
   price: number; // Will be converted to actual currency (UAH instead of kopecks)
   photo: string | null;
-  type: string; // "2" for dishes, "3" or "1" for products
+  type: number; // 2 for dishes, 3 or 1 for products
   ingredient_id: string;
   weight_flag: string;
 }
