@@ -1,34 +1,25 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import NextAuth from "next-auth"
+import { authConfig } from "./auth.config"
+import { NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
-  // We only want to protect /admin routes
-  if (request.nextUrl.pathname.startsWith('/admin')) {
-    const basicAuth = request.headers.get('authorization');
+const { auth } = NextAuth(authConfig)
 
-    if (basicAuth) {
-      const authValue = basicAuth.split(' ')[1];
-      const [user, pwd] = atob(authValue).split(':');
+export default auth((req) => {
+  const isAdminPath = req.nextUrl.pathname.startsWith('/admin') && req.nextUrl.pathname !== '/admin/login';
+  const isProtectedApi = req.nextUrl.pathname === '/api/poster/config';
 
-      const validUser = 'admin';
-      const validPwd = process.env.ADMIN_PASSWORD || 'secret'; // Fallback for dev
-
-      if (user === validUser && pwd === validPwd) {
-        return NextResponse.next();
+  if (isAdminPath || isProtectedApi) {
+    if (!req.auth || (req.auth.user as any)?.role !== 'ADMIN') {
+      if (isAdminPath) {
+        return NextResponse.redirect(new URL('/api/auth/signin?callbackUrl=' + encodeURIComponent(req.url), req.url));
+      } else {
+        return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
       }
     }
-
-    return new NextResponse('Auth required', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Secure Area"',
-      },
-    });
   }
-
   return NextResponse.next();
-}
+})
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/admin/:path*', '/api/poster/config'],
 };
