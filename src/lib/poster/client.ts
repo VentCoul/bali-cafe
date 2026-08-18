@@ -1,8 +1,40 @@
 import { getPosterToken } from './auth';
 import { PosterProduct, PosterCategory } from './types';
 
-// Helper to normalize Poster response which can sometimes be a dict instead of an array
-function normalizeResponse<T>(data: any): T[] {
+// Визначаємо явні типи замість 'any'
+interface RawPosterItem {
+  product_id: string;
+  menu_category_id: string;
+  product_name: string;
+  price: string | Record<string, string>;
+  photo: string | null;
+  type: number;
+  ingredient_id: string;
+  weight_flag: string;
+}
+
+interface RawPosterCategory {
+  category_id: string;
+  category_name: string;
+}
+
+interface RawPosterTable {
+  table_id: string;
+  spot_id: string;
+  table_name: string;
+}
+
+export interface PosterOrderData {
+  spot_id: string;
+  phone: string;
+  first_name: string;
+  comment?: string;
+  products: { product_id: string; count: number; price: number }[];
+  table_id?: string;
+}
+
+// Допоміжна функція для нормалізації відповіді Poster, яка іноді може бути об'єктом, а не масивом
+function normalizeResponse<T>(data: unknown): T[] {
   if (Array.isArray(data)) return data;
   if (typeof data === 'object' && data !== null) {
     return Object.values(data).flatMap(v => Array.isArray(v) ? v : [v]) as T[];
@@ -11,13 +43,13 @@ function normalizeResponse<T>(data: any): T[] {
 }
 
 /**
- * Make a request to Poster API
+ * Виконує запит до Poster API
  */
-async function fetchPosterAPI(endpoint: string, options: RequestInit = {}) {
+export async function fetchPosterAPI(endpoint: string, options: RequestInit = {}) {
   const tokenData = getPosterToken();
   if (!tokenData) throw new Error('Poster is not connected (No token found)');
 
-  const url = `https://${tokenData.account}.joinposter.com/api/v3${endpoint}`;
+  const url = `https://${tokenData.account}.joinposter.com/api${endpoint}`;
   const urlWithToken = new URL(url);
   urlWithToken.searchParams.append('token', tokenData.access_token);
 
@@ -40,68 +72,68 @@ async function fetchPosterAPI(endpoint: string, options: RequestInit = {}) {
 }
 
 /**
- * Get all active menu products
+ * Отримує всі активні товари з меню
  */
 export async function getMenuProducts(): Promise<PosterProduct[]> {
   const rawData = await fetchPosterAPI('/menu.getProducts');
-  const items = normalizeResponse<any>(rawData);
+  const items = normalizeResponse<RawPosterItem>(rawData);
   
   return items.map(item => {
-    // Process prices based on type. Sometimes prices are dicts based on spot.
-    // For simplicity in MVP, we take the first available price or base price.
+    // Обробляємо ціни залежно від типу. Іноді ціни - це об'єкти, що залежать від закладу (spot).
+    // Для простоти в MVP ми беремо першу доступну або базову ціну.
     let price = 0;
     if (typeof item.price === 'object' && item.price !== null) {
       price = parseInt(Object.values(item.price)[0] as string) || 0;
     } else {
-      price = parseInt(item.price) || 0;
+      price = parseInt(item.price as string) || 0;
     }
 
     return {
       product_id: item.product_id,
       menu_category_id: item.menu_category_id,
       product_name: item.product_name,
-      // Convert kopecks to UAH
+      // Конвертуємо копійки в гривні
       price: price / 100,
       photo: item.photo,
       type: item.type,
       ingredient_id: item.ingredient_id,
       weight_flag: item.weight_flag,
     };
-  }).filter(item => item.product_name); // Filter out invalid items
+  }).filter(item => item.product_name); // Відфільтровуємо невалідні товари
 }
 
 /**
- * Get menu categories
+ * Отримує категорії меню
  */
 export async function getCategories(): Promise<PosterCategory[]> {
   const rawData = await fetchPosterAPI('/menu.getCategories');
-  const items = normalizeResponse<any>(rawData);
+  const items = normalizeResponse<RawPosterCategory>(rawData);
   return items.map(item => ({
     category_id: item.category_id,
     category_name: item.category_name
   }));
 }
 
-export async function getTables(): Promise<any[]> {
-  // We use spots.getTables to get all tables
+export async function getTables(): Promise<RawPosterTable[]> {
+  // Використовуємо spots.getTables, щоб отримати всі столики
   const rawData = await fetchPosterAPI('/spots.getTables');
-  return normalizeResponse<any>(rawData).map(item => ({
+  return normalizeResponse<RawPosterTable>(rawData).map(item => ({
     table_id: item.table_id,
     spot_id: item.spot_id,
     table_name: item.table_name
   }));
 }
 
-export async function createOrder(orderData: any): Promise<any> {
-  // createIncomingOrder endpoint receives JSON directly
+export async function createOrder(orderData: PosterOrderData): Promise<unknown> {
+  // Ендпоінт createIncomingOrder приймає JSON напряму
   return await fetchPosterAPI('/incomingOrders.createIncomingOrder', {
     method: 'POST',
     body: JSON.stringify(orderData)
   });
 }
 
-// Admin function to simulate creating a product in Poster
-export async function createPosterProduct(data: any): Promise<any> {
+// Адмінська функція для імітації створення товару в Poster
+export async function createPosterProduct(data: Record<string, unknown>): Promise<unknown> {
   return await fetchPosterAPI('/menu.createProduct', {
     method: 'POST',
     body: JSON.stringify(data)
