@@ -10,7 +10,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-[var(--color-bali-beige)]">
       <Header />
       
-      <main className="flex-1 w-full overflow-hidden">
+      <main className="flex-1 w-full overflow-clip">
         <HeroParallax />
         
         <section id="menu" className="pt-8 pb-16 max-w-7xl mx-auto px-6 w-full">

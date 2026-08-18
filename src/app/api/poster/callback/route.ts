@@ -30,8 +30,9 @@ export async function GET(request: Request) {
     const tokenUrl = `https://${account}.joinposter.com/api/v2/auth/access_token`;
     
     const formData = new URLSearchParams();
-    formData.append('client_id', clientId);
-    formData.append('client_secret', clientSecret);
+    formData.append('application_id', clientId);
+    formData.append('application_secret', clientSecret);
+    formData.append('grant_type', 'authorization_code');
     formData.append('code', code);
     formData.append('redirect_uri', redirectUri);
 
@@ -46,7 +47,7 @@ export async function GET(request: Request) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Poster OAuth exchange failed:', errorText);
-      return NextResponse.redirect(`${baseUrl}/admin?error=Token+exchange+failed`);
+      return NextResponse.redirect(`${baseUrl}/admin?error=Token+exchange+failed:+${encodeURIComponent(errorText)}`);
     }
 
     const data = await response.json();
@@ -61,6 +62,6 @@ export async function GET(request: Request) {
     }
   } catch (err) {
     console.error('Poster OAuth error:', err);
-    return NextResponse.redirect(`${baseUrl}/admin?error=Internal+server+error`);
+    return NextResponse.redirect(`${baseUrl}/admin?error=Internal+server+error:+${encodeURIComponent(String(err))}`);
   }
 }

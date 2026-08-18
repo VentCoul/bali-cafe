@@ -11,6 +11,10 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      - AUTH_TRUST_HOST=true
+      - AUTH_URL=${NEXT_PUBLIC_BASE_URL}
     # We mount the .env.local file so we can change keys without rebuilding the image
     env_file:
       - .env.local
+    volumes:
+      - ./data:/app/data

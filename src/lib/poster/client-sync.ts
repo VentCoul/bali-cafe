@@ -1,7 +1,7 @@
 import { prisma } from '../db';
 import { fetchPosterAPI } from './client';
 
-export async function syncUserWithPoster(userId: string, phone: string) {
+export async function syncUserWithPoster(phone: string, data?: { name?: string, email?: string }) {
   // Check if client exists in Poster
   const clients = await fetchPosterAPI(`/clients.getClients?phone=${encodeURIComponent(phone)}`);
   
@@ -14,8 +14,9 @@ export async function syncUserWithPoster(userId: string, phone: string) {
     const newClient = await fetchPosterAPI('/clients.createClient', {
       method: 'POST',
       body: JSON.stringify({
-        client_name: 'Новий клієнт',
+        client_name: data?.name || 'Новий клієнт',
         phone: phone,
+        email: data?.email,
       })
     });
     // @ts-ignore Poster returns the created object
@@ -26,11 +27,5 @@ export async function syncUserWithPoster(userId: string, phone: string) {
     throw new Error('Failed to resolve Poster client ID');
   }
 
-  // Update local DB
-  await prisma.user.update({
-    where: { id: userId },
-    data: { posterClientId: String(clientId) }
-  });
-  
   return String(clientId);
 }
