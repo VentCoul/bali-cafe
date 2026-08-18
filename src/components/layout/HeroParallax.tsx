@@ -19,7 +19,7 @@ export default function HeroParallax() {
   return (
     <div 
       ref={ref}
-      className="relative h-[80vh] w-full overflow-hidden flex items-center justify-center bg-gray-900"
+      className="relative h-[80vh] w-full overflow-hidden flex flex-col items-center justify-center bg-gray-900"
     >
       {/* Photorealistic Parallax Background */}
       <motion.div 
@@ -33,7 +33,7 @@ export default function HeroParallax() {
         />
       </motion.div>
 
-      {/* Dynamic Overlay */}
+      {/* Dynamic Overlay - Darker for better contrast */}
       <motion.div 
         style={{ opacity: opacityOverlay }}
         className="absolute inset-0 z-10 bg-black pointer-events-none"
@@ -42,14 +42,18 @@ export default function HeroParallax() {
       {/* Hero Text */}
       <motion.div 
         style={{ y: yText }}
-        className="relative z-20 text-center px-4"
+        className="relative z-20 text-center px-4 flex flex-col items-center"
       >
-        <h1 className="text-6xl sm:text-8xl font-serif font-bold text-white mb-6 drop-shadow-lg tracking-wide">
-          Bali <span className="text-[var(--color-bali-gold)]">Cafe</span>
+        <h1 className="text-6xl sm:text-8xl font-serif font-bold text-white mb-4 drop-shadow-[0_4px_16px_rgba(0,0,0,0.8)] tracking-wide">
+          Bali <span className="text-[var(--color-bali-gold)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">Cafe</span>
         </h1>
-        <p className="text-xl sm:text-2xl text-white/90 font-medium max-w-xl mx-auto drop-shadow-md">
+        <p className="text-xl sm:text-2xl text-white/95 font-medium max-w-xl mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-10">
           Шматочок тропічного раю у вашому місті
         </p>
+        
+        <a href="#menu" className="glass-panel px-8 py-4 rounded-full font-bold text-[var(--color-bali-gold)] hover:text-white hover:scale-105 hover:-translate-y-1 transition-all duration-300">
+          Переглянути меню
+        </a>
       </motion.div>
 
       {/* Gradient fade to beige at the bottom to blend with the menu section */}

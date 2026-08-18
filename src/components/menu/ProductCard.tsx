@@ -27,10 +27,10 @@ export default function ProductCard({ product }: Props) {
 
   return (
     <div 
-      className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all border border-gray-100 flex p-3 gap-4 h-full"
+      className="glass-panel rounded-xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-white/10 flex p-3 gap-4 h-full group"
     >
       {/* Thumbnail */}
-      <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gray-100 rounded-lg overflow-hidden shrink-0 relative flex flex-col items-center justify-center border border-gray-200">
+      <div className="w-24 h-24 sm:w-28 sm:h-28 bg-white/10 rounded-lg overflow-hidden shrink-0 relative flex flex-col items-center justify-center border border-white/10">
         {product.photo ? (
           <img 
             src={imageUrl} 
@@ -41,46 +41,46 @@ export default function ProductCard({ product }: Props) {
             }}
           />
         ) : (
-          <div className="w-full h-full bg-[var(--color-bali-beige)] flex flex-col items-center justify-center text-[var(--color-bali-gold)] opacity-70">
-            <Utensils size={28} className="mb-2 opacity-50" />
-            <span className="text-[10px] font-serif tracking-wider uppercase opacity-60">Bali Cafe</span>
+          <div className="w-full h-full bg-white/5 flex flex-col items-center justify-center text-[var(--color-bali-gold)] opacity-70">
+            <Utensils size={28} className="mb-2 opacity-50 text-white/50" />
+            <span className="text-[10px] font-serif tracking-wider uppercase text-white/50 opacity-60">Bali Cafe</span>
           </div>
         )}
       </div>
       
       {/* Details */}
       <div className="flex flex-col flex-1 py-1 min-w-0">
-        <h3 className="font-serif text-base sm:text-lg font-semibold text-[var(--color-bali-dark)] line-clamp-2 leading-tight mb-2">
+        <h3 className="font-serif text-base sm:text-lg font-semibold text-white group-hover:text-[var(--color-bali-gold)] transition-colors line-clamp-2 leading-tight mb-2">
           {product.product_name}
         </h3>
         
         <div className="flex items-center justify-between mt-auto">
-          <span className="text-lg font-bold text-[var(--color-bali-green)] shrink-0">
-            {product.price} ₴ {product.weight_flag === '1' && <span className="text-sm font-normal text-gray-500">/ 100г</span>}
+          <span className="text-lg font-bold text-[var(--color-bali-gold)] shrink-0">
+            {product.price} ₴ {product.weight_flag === '1' && <span className="text-sm font-normal text-white/60">/ 100г</span>}
           </span>
           {quantityInCart > 0 ? (
-            <div className="flex items-center gap-1 bg-gray-50 rounded-full p-1 border border-gray-200 shadow-sm ml-2 h-9">
-              <button onClick={() => updateQuantity(product.product_id, quantityInCart - (product.weight_flag === '1' ? 50 : 1))} className="w-8 h-full flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-200 rounded-full transition-colors text-lg font-medium">-</button>
+            <div className="flex items-center gap-1 bg-white/10 rounded-full p-1 border border-white/10 shadow-sm ml-2 h-9">
+              <button onClick={() => updateQuantity(product.product_id, quantityInCart - (product.weight_flag === '1' ? 50 : 1))} className="w-8 h-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors text-lg font-medium">-</button>
               {product.weight_flag === '1' ? (
-                <div className="flex items-center bg-white px-1 rounded-sm border border-gray-100 h-full">
+                <div className="flex items-center bg-white/10 px-1 rounded-sm border border-white/10 h-full">
                   <input 
                     type="number" 
                     value={quantityInCart} 
                     onChange={(e) => updateQuantity(product.product_id, parseInt(e.target.value) || 0)} 
-                    className="w-10 text-center text-sm font-bold bg-transparent outline-none m-0 p-0" 
+                    className="w-10 text-center text-sm font-bold bg-transparent text-white outline-none m-0 p-0" 
                     style={{ MozAppearance: 'textfield' }}
                   />
-                  <span className="text-[10px] text-gray-500 font-medium">г</span>
+                  <span className="text-[10px] text-white/70 font-medium">г</span>
                 </div>
               ) : (
-                <span className="text-sm font-bold w-6 text-center select-none">{quantityInCart}</span>
+                <span className="text-sm font-bold w-6 text-center text-white select-none">{quantityInCart}</span>
               )}
-              <button onClick={() => updateQuantity(product.product_id, quantityInCart + (product.weight_flag === '1' ? 50 : 1))} className="w-8 h-full flex items-center justify-center text-gray-500 hover:text-black hover:bg-gray-200 rounded-full transition-colors text-lg font-medium">+</button>
+              <button onClick={() => updateQuantity(product.product_id, quantityInCart + (product.weight_flag === '1' ? 50 : 1))} className="w-8 h-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 rounded-full transition-colors text-lg font-medium">+</button>
             </div>
           ) : (
             <button 
               onClick={() => addItem(product)}
-              className="h-9 px-4 rounded-full flex items-center justify-center transition-colors shadow-sm font-medium text-sm whitespace-nowrap shrink-0 ml-2 bg-[var(--color-bali-gold)] text-white hover:bg-[var(--color-bali-green)]"
+              className="h-9 px-4 rounded-full flex items-center justify-center transition-colors shadow-sm font-medium text-sm whitespace-nowrap shrink-0 ml-2 bg-[var(--color-bali-gold)] text-white hover:bg-white/20"
             >
               + Додати
             </button>
