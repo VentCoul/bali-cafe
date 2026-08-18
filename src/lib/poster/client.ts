@@ -31,6 +31,8 @@ export interface PosterOrderData {
   comment?: string;
   products: { product_id: string; count: number; price: number }[];
   table_id?: string;
+  client_id?: string | number;
+  bonus?: string | number; // Amount of bonuses to deduct
 }
 
 // Допоміжна функція для нормалізації відповіді Poster, яка іноді може бути об'єктом, а не масивом
@@ -138,4 +140,57 @@ export async function createPosterProduct(data: Record<string, unknown>): Promis
     method: 'POST',
     body: JSON.stringify(data)
   });
+}
+
+export interface PosterClientInfo {
+  client_id: string;
+  client_name: string;
+  phone: string;
+  bonus: string | number; // usually string in kopecks or UAH depending on Poster version, we'll parse it
+  discount_per: string;
+  client_groups_id_client: string;
+}
+
+/**
+ * Отримує клієнта по номеру телефону
+ */
+export async function getClientByPhone(phone: string): Promise<PosterClientInfo | null> {
+  // Згідно з документацією Poster, пошук по телефону можна робити так:
+  // /clients.getClients?phone=...
+  // Але fetchPosterAPI автоматично додає ?token=... тому нам треба додавати &phone=
+  // Трохи змінимо fetchPosterAPI, або просто передамо параметр
+  try {
+    const rawData = await fetchPosterAPI(`/clients.getClients?phone=${encodeURIComponent(phone)}`);
+    const clients = normalizeResponse<PosterClientInfo>(rawData);
+    
+    if (clients.length > 0) {
+      return clients[0];
+    }
+  } catch (error) {
+    console.error('Помилка отримання клієнта з Poster:', error);
+  }
+  return null;
+}
+
+/**
+ * Створює нового клієнта в Poster
+ */
+export async function createPosterClient(clientData: { phone: string; client_name: string; client_sex?: number }): Promise<PosterClientInfo | null> {
+  try {
+    const rawData = await fetchPosterAPI('/clients.createClient', {
+      method: 'POST',
+      body: JSON.stringify({
+        ...clientData,
+        client_groups_id_client: '1' // Дефолтна група клієнтів (можна винести в налаштування)
+      })
+    });
+    
+    // Poster повертає ID створеного клієнта у response
+    if (typeof rawData === 'number' || typeof rawData === 'string') {
+      return await getClientByPhone(clientData.phone);
+    }
+  } catch (error) {
+    console.error('Помилка створення клієнта в Poster:', error);
+  }
+  return null;
 }

@@ -12,6 +12,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/admin/menu" className="hover:text-[var(--color-bali-gold)] transition-colors">
             Управління Меню
           </Link>
+          <Link href="/admin/clients" className="hover:text-[var(--color-bali-gold)] transition-colors">
+            База Клієнтів
+          </Link>
           <Link href="/" className="mt-8 text-sm opacity-50 hover:opacity-100 transition-opacity">
             ← Повернутися на сайт
           </Link>

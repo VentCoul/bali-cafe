@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const TOKEN_FILE_PATH = path.join(process.cwd(), '.poster_data.json');
+const TOKEN_FILE_PATH = path.join(process.cwd(), 'data', '.poster_data.json');
 
 export interface PosterTokenData {
   access_token: string;
@@ -30,4 +30,17 @@ export function getPosterToken(): PosterTokenData | null {
     console.error('Error reading Poster token file:', error);
   }
   return null;
+}
+
+/**
+ * Removes the saved Poster access token.
+ */
+export function deletePosterToken(): void {
+  try {
+    if (fs.existsSync(TOKEN_FILE_PATH)) {
+      fs.unlinkSync(TOKEN_FILE_PATH);
+    }
+  } catch (error) {
+    console.error('Error deleting Poster token file:', error);
+  }
 }

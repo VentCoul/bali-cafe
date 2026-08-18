@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   description: "Офіційний сайт кафе Bali",
 };
 
+import { Providers } from "@/components/Providers";
+import { ToastProvider } from "@/components/providers/ToastProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,11 +33,14 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <Header />
-        <main className="flex-grow pt-20">
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <ToastProvider />
+          <Header />
+          <main className="flex-grow pt-20">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

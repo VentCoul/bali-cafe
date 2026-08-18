@@ -1,4 +1,6 @@
+export const dynamic = 'force-dynamic';
 import { getPosterToken } from '@/lib/poster/auth';
+import DisconnectPosterButton from '@/components/admin/DisconnectPosterButton';
 
 export default async function AdminDashboard() {
   const tokenData = getPosterToken();
@@ -17,6 +19,7 @@ export default async function AdminDashboard() {
           <p className="text-green-700 text-sm">
             Акаунт: <span className="font-bold">{tokenData.account}</span>
           </p>
+          <DisconnectPosterButton />
         </div>
       ) : (
         <div className="bg-orange-50 border border-orange-200 p-6 rounded-lg">
