@@ -4,7 +4,10 @@ import bcrypt from 'bcryptjs';
 
 async function main() {
   const email = process.env.ADMIN_EMAIL || 'admin@bali.ua';
-  const password = process.env.ADMIN_PASSWORD || 'REMOVED_DEFAULT_PASSWORD';
+  const password = process.env.ADMIN_PASSWORD;
+  if (!password) {
+    throw new Error('Задайте ADMIN_PASSWORD у змінних середовища перед запуском seed-admin.');
+  }
   const phone = process.env.ADMIN_PHONE || '+380990000000';
 
   const existingAdmin = await prisma.user.findUnique({
